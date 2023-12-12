@@ -4,6 +4,7 @@ ansible-role-kvm
 This role is a part of my developer machine deploy It's a role to install KVM on AlmaLinux 9, "More OSes will be added later"
 The role is imported by almalinux9-my-developer-machine project as: JsirL.kvm
 
+
 Requirements
 ------------
 This role is to be use with my role AlmaLinux9-my-developer-machine to create a zero hassle developments environment
