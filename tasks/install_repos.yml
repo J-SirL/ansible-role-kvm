@@ -1,0 +1,33 @@
+# Create repos using templates 
+---
+
+- name: Create rpmfusion-free-tainted repo
+  template:
+    src: rpmfusion-free-tainted.repo.j2
+    dest: /etc/yum.repos.d/rpmfusion-free-tainted.repo
+
+- name: Create rpmfusion-free-updates repo
+  template:
+    src: rpmfusion-free-updates.repo.j2
+    dest: /etc/yum.repos.d/rpmfusion-free-updates.repo
+
+- name: Create rpmfusion-free-updates-testing repo
+  template:
+    src: rpmfusion-free-updates-testing.repo.j2
+    dest: /etc/yum.repos.d/rpmfusion-free-updates-testing.repo
+
+- name: Create rpmfusion-nonfree-tainted repo
+  template:
+    src: rpmfusion-nonfree-tainted.repo.j2
+    dest: /etc/yum.repos.d/rpmfusion-nonfree-tainted.repo
+
+
+- name: Create rpmfusion-nonfree-updates.repo
+  template:
+    src: rpmfusion-nonfree-updates.repo.j2
+    dest: /etc/yum.repos.d/rpmfusion-nonfree-updates.repo
+
+- name: Create rpmfusion-nonfree-updates-testing.repo.j2
+  template:
+    src: rpmfusion-nonfree-updates-testing.repo.j2
+    dest: /etc/yum.repos.d/rpmfusion-nonfree-updates-testing.repo

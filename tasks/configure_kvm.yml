@@ -1,0 +1,47 @@
+---
+#@TODO configure libvirt for external network 
+#@TODO /etc/libvirt/libvirtd.conf 
+#@TODO change this #unix_sock_group = "libvirt" 
+#@TODO #unix_sock_rw_perms = "0770"
+#@TODO add libvirtd restart
+#@TDOD add users to libvirt will be done using var in defaults/main.yml
+
+- name: Configure KVM for development
+  systemd:
+    name: libvirtd
+    state: started
+    enabled: yes
+
+- name: change this #unix_sock_group = "libvirt"
+  lineinfile:
+     path: /etc/libvirt/libvirtd.conf
+     regexp:  '#(unix_sock_group = "libvirt".*)'
+     line: '\1'
+     backrefs: yes
+
+#- name: change this #unix_sock_rw_perms = "0770"
+#  lineinfile:
+- name: change this #unix_sock_group = "libvirt"
+  lineinfile:
+     path: /etc/libvirt/libvirtd.conf
+     regexp:  '#(unix_sock_rw_perms = "0770".*)'
+     line: '\1'
+     backrefs: yes
+
+- name: restart libvirtd
+  systemd:
+    name: libvirtd
+    state: restarted
+    enabled: yes
+
+## This is temporary code 
+#@TDOD add users to libvirt will be done using var in defaults/main.yml
+#@TDOD add users to libvirt will be done using var and loop
+
+- name: append my user to libvirt 
+  user: 
+    name: jsorell
+    groups: libvirt
+    append: yes
+
+

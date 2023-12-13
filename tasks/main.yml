@@ -1,2 +1,37 @@
 ---
 # tasks file for ansible-role-kvm
+---
+- name: include user_tasks
+  include_tasks:
+    install_repos.yml
+
+- name: include user_tasks
+  include_tasks:
+    configure_users.yml
+
+- name: copy authorized keys from github
+  authorized_key:
+     user: jsorell
+     state: present
+     key: https://github.com/J-SirL.keys
+
+
+- name: update OS
+  yum:
+    name: "*"
+    state: latest
+
+## Install the programs required
+- name: install packages {{ packages }}
+  dnf:
+    name: "{{ item }}"
+  loop: "{{ packages }}"
+
+- name: reload servcice
+  systemd:
+      daemon_reload: yes # not required. run daemon-reload before doing any other operations, to make sure systemd has read any changes.
+
+- name: configure kvm
+  include_tasks:
+    configure_kvm.yml
+

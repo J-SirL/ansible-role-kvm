@@ -1,0 +1,33 @@
+---
+- name: create groups
+  group:
+      name: "{{ item.groups }}" 
+      state: present
+  loop: "{{ users }}"
+  
+
+- name: makesure admin user exists
+  user:
+    name: "{{ item.name }}"
+    comment: "{{ item.comment }}"
+    ssh_key_bits: "{{ item.ssh_key_bits }}"
+    password_lock: "{{ item.password_lock }}"
+    generate_ssh_key: "{{ item.generate_ssh_key }}"
+    ssh_key_comment: "{{ item.ssh_key_comment }}"
+    ssh_key_type: "{{ item.ssh_key_type }}"
+    groups: "{{ item.groups }}"
+    seuser: "{{ item.seuser }}"
+    state: "{{ item.state }}"
+  loop: "{{ users }}"
+  register: user_added
+
+
+# tasks file for mydevops_machine
+- name: Validate the sudoers file before saving
+  lineinfile:
+    path: /etc/sudoers.d/admin
+    state: present
+    line: '%autodeploy ALL=(ALL) NOPASSWD: ALL'
+    validate: /usr/sbin/visudo -cf %s
+    create: yes
+  when: user_added is changed
