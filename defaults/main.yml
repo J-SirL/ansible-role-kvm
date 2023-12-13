@@ -2,14 +2,14 @@
 # defaults file for ansible-role-kvm
 
 packages:
-  - 'Development Tools'
+  - "@Development Tools"
   - tmux
   - wget
   - python3-dnf-plugin-versionlock
   - epel-release
   - python3-libvirt
-  - 'Virtualization Host'
-  - 'Virtualization Client'
+  - "@Virtualization Host"
+  - "@Virtualization Client"
   - akmod-nvidia # Installation of nvidia drivers
   - xorg-x11-drv-nvidia-cuda #CUDA driver for xorg-x11-drv-nvidia
 
