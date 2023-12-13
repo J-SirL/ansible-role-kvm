@@ -1,7 +1,6 @@
 ---
 # defaults file for ansible-role-kvm
----
-# defaults file for mydevops_machine
+
 packages:
   - 'Development Tools'
   - tmux
