@@ -1,6 +1,6 @@
 ---
 # tasks file for ansible-role-kvm
----
+
 - name: include user_tasks
   include_tasks:
     install_repos.yml
