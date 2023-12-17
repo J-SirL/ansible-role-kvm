@@ -1,0 +1,58 @@
+---
+# using community.libvirt.virt_pool
+#ansible-galaxy collection install community.libvirt
+# Facts will be available as 'ansible_libvirt_pools'
+  - name: gather facts on existing virsh pool
+    community.libvirt.virt_pool:
+      command: facts
+      uri: "{{ libvirt_uri }}"
+
+  - name: add a storage pool for storing libvirt images if Pool doesn't already exists
+    community.libvirt.virt_pool:
+      command: define
+      # looks like setting name here is a redundant, the name is anyways taken from the template xml file, but should set it to make virt_pool module happy.
+      name: "{{ image_pool_name }}"
+      xml: '{{ lookup("template", "pool/pool.xml.j2") }}'
+      uri: "{{ libvirt_uri }}"
+    when: image_pool_name not in ansible_libvirt_pools
+
+  - name: create a image_pool_dir
+    ansible.builtin.file:
+      path: "{{ image_pool_dir }}"
+      owner: jsorell #"{{ ansible_user }}"
+      group: libvirt
+      recurse: yes
+      mode: '0755'
+    become: true
+
+# We should gather facts again so that the newly created pool is updated to 'ansible_libvirt_pools'
+  - name: gather facts on existing virsh pool
+    community.libvirt.virt_pool:
+      command: facts
+      uri: "{{ libvirt_uri }}"
+
+  - block:
+    - name: build the storage pool.
+      community.libvirt.virt_pool:
+        command: build
+        name: "{{ image_pool_name }}"
+        uri: "{{ libvirt_uri }}"
+  
+    - name: start the storage pool.
+      community.libvirt.virt_pool:
+        command: create
+        name: "{{ image_pool_name }}"
+        uri: "{{ libvirt_uri }}"
+    when: ansible_libvirt_pools["{{image_pool_name}}"].state != "active"
+
+  - name: autostart the storage pool
+    community.libvirt.virt_pool:
+      autostart: yes      
+      name: "{{ image_pool_name }}"
+      uri: "{{ libvirt_uri }}"
+
+  - name: ensure that the pool is active
+    community.libvirt.virt_pool:
+      state: active
+      name: "{{ image_pool_name }}"
+      uri: "{{ libvirt_uri }}"
