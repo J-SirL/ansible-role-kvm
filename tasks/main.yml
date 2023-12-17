@@ -36,3 +36,6 @@
   ansible.builtin.include_tasks:
     configure_kvm.yml
 
+- name: create new virt_pool
+  ansible.builtin.include_tasks:
+    create_virt_pool.yml
