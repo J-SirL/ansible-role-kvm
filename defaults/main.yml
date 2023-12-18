@@ -3,8 +3,6 @@
 
 packages:
   - "@Development Tools"
-  - tmux
-  - wget
   - python3-dnf-plugin-versionlock
   - epel-release
   - python3-libvirt
