@@ -27,11 +27,13 @@ users:
    state: present
 
 # variables used in create_virt_pool.yml default values 
-libvirt_folder: "/var/lib/libvirt/"
-image_pool_dir: "/opt/pools/homelab/"
-image_pool_name: "ansible_pool"
-image_pool_type: "dir"
+kvm_libvirt_folder: "/var/lib/libvirt/" # name was libvirt_folder
+kvm_image_pool_dir: "/opt/pools/homelab/"
+kvm_image_pool_name: "ansible_pool"
+kvm_image_pool_type: "dir"
 #change the uri to "qemu:///seystem" would execute the virt_pool module as a root even if the remote_user/become_user in ansible is set to a non root user.
 libvirt_uri: "qemu:///session"
+kvm_pool_dir_selinux_context: "virt_image_t"  # Set the SELinux context
+
 
 
