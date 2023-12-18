@@ -8,7 +8,7 @@ packages:
   - python3-dnf-plugin-versionlock
   - epel-release
   - python3-libvirt
-  - python3-xml
+  # - python3-xml not sure if needed
   - "@Virtualization Host"
   - "@Virtualization Client"
   - akmod-nvidia # Installation of nvidia drivers
