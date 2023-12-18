@@ -1,0 +1,28 @@
+---
+# Enable IOMMU on AlmaLinux 9 or RHEL compatible OS's
+- name: Check system boot mode (BIOS or UEFI)
+  ansible.builtin.command: test -d /sys/firmware/efi && echo UEFI || echo BIOS
+  register: boot_mode
+
+- name: Modify GRUB configuration to enable IOMMU
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX='
+    line: >-
+      GRUB_CMDLINE_LINUX="{{ ansible_default_ipv4.gateway }} rhgb quiet intel_iommu=on"
+    when: boot_mode.stdout == "BIOS"
+  notify: Update GRUB
+
+- name: Modify GRUB configuration to enable IOMMU (UEFI)
+  ansible.builtin.lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX='
+    line: >-
+      GRUB_CMDLINE_LINUX="{{ ansible_default_ipv4.gateway }} rhgb quiet intel_iommu=on"
+    when: boot_mode.stdout == "UEFI"
+  notify: Update GRUB UEFI
+
+
+
+      
+        

@@ -1,2 +1,15 @@
 ---
 # handlers file for ansible-role-kvm
+# Update GRUB (BIOS) GRUB (UEFI) and Reboot is handlers for tasks in configure_iommu._enable.yml
+
+
+- name: Update GRUB (BIOS)
+  ansible.builtin.command: grub2-mkconfig -o /boot/grub2/grub.cfg
+  when: boot_mode.stdout == "BIOS"
+
+- name: Update GRUB (UEFI)
+  ansible.builtin.command: grub2-mkconfig -o /boot/efi/EFI/almalinux/grub.cfg
+  when: boot_mode.stdout == "UEFI"
+    
+- name: Reboot
+  ansible.builtin.reboot:
