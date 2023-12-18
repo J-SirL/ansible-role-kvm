@@ -13,6 +13,7 @@ packages:
   - "@Virtualization Client"
   - akmod-nvidia # Installation of nvidia drivers
   - xorg-x11-drv-nvidia-cuda #CUDA driver for xorg-x11-drv-nvidia
+  # - qemu-kvm-device-display-virtio-gpu-pci / already installed
 
 
 users:
