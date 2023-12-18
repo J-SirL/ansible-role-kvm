@@ -33,7 +33,7 @@
     when: ansible_selinux.status == 'enabled'
 
   - name: Apply new SELinux file context to filesystem path "{{ kvm_image_pool_dir }}"
-    ansible.builtin.command: restorecon -Rv "{{ kvm_image_pool_dir }}"
+    ansible.builtin.command: restorecon -vR "{{ kvm_image_pool_dir }}"
 
 # We should gather facts again so that the newly created pool is updated to 'ansible_libvirt_pools'
   - name: gather facts on existing virsh pool
