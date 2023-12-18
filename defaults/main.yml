@@ -14,6 +14,7 @@ packages:
   - akmod-nvidia # Installation of nvidia drivers
   - xorg-x11-drv-nvidia-cuda #CUDA driver for xorg-x11-drv-nvidia
 
+
 users:
  - name: admin
    comment: "My ansible user"
