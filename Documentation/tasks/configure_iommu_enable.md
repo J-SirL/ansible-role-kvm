@@ -1,6 +1,3 @@
-Certainly! Below is an example of how you might structure your Markdown documentation for the `JsirL.kvm` Ansible role, detailing the newly added functionality to enable IOMMU. This documentation can be included in your role's `README.md` file:
-
-```markdown
 # JsirL.kvm Ansible Role
 
 ## Overview
